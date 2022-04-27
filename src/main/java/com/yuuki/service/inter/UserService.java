@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 /**
  * @author Yuuki
  */
-@Service
 public interface UserService {
 
     void add(User user);

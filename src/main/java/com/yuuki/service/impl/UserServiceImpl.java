@@ -12,7 +12,7 @@ import java.util.Optional;
  * @author Yuuki
  */
 @Service
-public class UserServiceImpl {
+public class UserServiceImpl implements UserService{
 
     private UserRepository userRepository;
 
@@ -21,11 +21,12 @@ public class UserServiceImpl {
         this.userRepository = userRepository;
     }
 
+    @Override
     public void add(User user) {
         userRepository.save(user);
     }
 
-
+    @Override
     public User findById(Long id) {
         User user = new User();
         Optional<User> userOptional = userRepository.findById(id);
