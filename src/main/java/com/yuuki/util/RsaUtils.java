@@ -1,16 +1,26 @@
-package com.robod.utils;
+package com.yuuki.util;
 
+import org.springframework.util.Base64Utils;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.security.*;
+import java.security.spec.EncodedKeySpec;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
+import java.util.Arrays;
 import java.util.Base64;
 
+import static javax.crypto.Cipher.DECRYPT_MODE;
+
 /**
- * @author 黑马程序员
+ * @author Yuuki
  */
 public class RsaUtils {
 
@@ -20,7 +30,6 @@ public class RsaUtils {
      *
      * @param filename 公钥保存路径，相对于classpath
      * @return 公钥对象
-     * @throws Exception
      */
     public static PublicKey getPublicKey(String filename) throws Exception {
         byte[] bytes = readFile(filename);
@@ -32,7 +41,6 @@ public class RsaUtils {
      *
      * @param filename 私钥保存路径，相对于classpath
      * @return 私钥对象
-     * @throws Exception
      */
     public static PrivateKey getPrivateKey(String filename) throws Exception {
         byte[] bytes = readFile(filename);
@@ -43,8 +51,8 @@ public class RsaUtils {
      * 获取公钥
      *
      * @param bytes 公钥的字节形式
-     * @return
-     * @throws Exception
+     * @return PublicKey
+
      */
     private static PublicKey getPublicKey(byte[] bytes) throws Exception {
         bytes = Base64.getDecoder().decode(bytes);
@@ -57,8 +65,7 @@ public class RsaUtils {
      * 获取密钥
      *
      * @param bytes 私钥的字节形式
-     * @return
-     * @throws Exception
+     * @return PublicKey
      */
     private static PrivateKey getPrivateKey(byte[] bytes) throws NoSuchAlgorithmException, InvalidKeySpecException {
         bytes = Base64.getDecoder().decode(bytes);
@@ -68,7 +75,7 @@ public class RsaUtils {
     }
 
     /**
-     * 根据密文，生存rsa公钥和私钥,并写入指定文件
+     * 根据密文，生成rsa公钥和私钥,并写入指定文件
      *
      * @param publicKeyFilename  公钥文件路径
      * @param privateKeyFilename 私钥文件路径

@@ -33,5 +33,5 @@ build/
 ### VS Code ###
 .vscode/
 src/main/resources/application.properties
-src/main/ras/privateKey
-src/main/ras/publicKey
+src/main/rsa/privateKey
+src/main/rsa/publicKey
