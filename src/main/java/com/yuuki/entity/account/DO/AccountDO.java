@@ -1,16 +1,11 @@
 package com.yuuki.entity.account.DO;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.yuuki.enums.account.AccountStatus;
 import lombok.Data;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
 
 /**
  * @author heyang
@@ -21,7 +16,7 @@ import java.util.Collection;
 @Data
 @Entity
 @Table(name = "t_account")
-public class AccountDO implements Serializable, UserDetails {
+public class AccountDO implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 5345846232448578745L;
@@ -51,46 +46,4 @@ public class AccountDO implements Serializable, UserDetails {
 
     @Column(name = "role_id", columnDefinition = "bigint comment '对应role表中的id'")
     private Long roleId;
-
-    @JsonIgnore
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return new ArrayList<>();
-    }
-
-    @JsonIgnore
-    @Override
-    public String getPassword() {
-        return password;
-    }
-
-    @JsonIgnore
-    @Override
-    public String getUsername() {
-        return username;
-    }
-
-    @JsonIgnore
-    @Override
-    public boolean isAccountNonExpired() { //指示用户的帐户是否已过期
-        return true;
-    }
-
-    @JsonIgnore
-    @Override
-    public boolean isAccountNonLocked() {   //指示用户是否被锁定或解锁
-        return true;
-    }
-
-    @JsonIgnore
-    @Override
-    public boolean isCredentialsNonExpired() {  //指示用户的凭据（密码）是否已过期
-        return true;
-    }
-
-    @JsonIgnore
-    @Override
-    public boolean isEnabled() {    //指示用户是否被启用或禁用
-        return true;
-    }
 }
