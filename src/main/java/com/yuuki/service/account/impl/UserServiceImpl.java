@@ -37,8 +37,4 @@ public class UserServiceImpl implements UserService {
         return new LoginUser(byUsername);
     }
 
-    @Override
-    public void login(UserDO userDO) {
-
-    }
 }

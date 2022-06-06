@@ -10,5 +10,4 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
  * @date 2022/6/6 17:48
  */
 public interface UserService extends UserDetailsService {
-    public void login(UserDO userDO);
 }
