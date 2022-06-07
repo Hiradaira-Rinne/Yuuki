@@ -1,9 +1,6 @@
 package com.yuuki.service.account;
 
-import com.yuuki.entity.account.UserDO;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 /**
  * @author Yuuki

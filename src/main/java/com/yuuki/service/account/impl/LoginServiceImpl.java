@@ -6,6 +6,7 @@ import com.yuuki.entity.account.UserDO;
 import com.yuuki.service.account.LoginService;
 import com.yuuki.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -25,9 +26,13 @@ public class LoginServiceImpl implements LoginService {
 
     private final AuthenticationManager authenticationManager;
 
-    public LoginServiceImpl(AuthenticationManager authenticationManager, Gson gson) {
+    private final StringRedisTemplate stringRedisTemplate;
+
+    @Autowired
+    public LoginServiceImpl(AuthenticationManager authenticationManager, Gson gson, StringRedisTemplate stringRedisTemplate) {
         this.authenticationManager = authenticationManager;
         this.gson = gson;
+        this.stringRedisTemplate = stringRedisTemplate;
     }
 
     @Override
@@ -38,6 +43,8 @@ public class LoginServiceImpl implements LoginService {
         String jwt = JwtUtil.createJWT(loginUser.getUserDO().getUsername());
         Map<Object, Object> result = new HashMap<>();
         result.put("Token", jwt);
+        // 用户信息存入redis
+        stringRedisTemplate.opsForValue().set("Login:" + loginUser.getUserDO().getUsername(), gson.toJson(loginUser));
         return gson.toJson(result);
     }
 }
