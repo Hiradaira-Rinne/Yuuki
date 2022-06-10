@@ -10,6 +10,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -46,5 +47,16 @@ public class LoginServiceImpl implements LoginService {
         // 用户信息存入redis
         stringRedisTemplate.opsForValue().set("Login:" + loginUser.getUserDO().getUsername(), gson.toJson(loginUser));
         return gson.toJson(result);
+    }
+
+    @Override
+    public String logout() {
+        // 获取SecurityContextHolder中用户信息
+        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext();
+        LoginUser loginUser = (LoginUser) usernamePasswordAuthenticationToken.getPrincipal();
+        String username = loginUser.getUserDO().getUsername();
+        // 删除redis中的值
+        stringRedisTemplate.delete("Login:" + username);
+        return "logout success";
     }
 }

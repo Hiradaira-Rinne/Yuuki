@@ -9,4 +9,6 @@ import com.yuuki.entity.account.UserDO;
 public interface LoginService {
 
     String login(UserDO userDO);
+
+    String logout();
 }

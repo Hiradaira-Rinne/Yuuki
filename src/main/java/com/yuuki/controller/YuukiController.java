@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class YuukiController {
-    @GetMapping("yuuki")
+    @GetMapping("/yuuki")
     public String yuuki() {
         return "hello yuuki";
     }
