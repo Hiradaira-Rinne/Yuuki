@@ -52,7 +52,7 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public String logout() {
         // 获取SecurityContextHolder中用户信息
-        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext();
+        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
         LoginUser loginUser = (LoginUser) usernamePasswordAuthenticationToken.getPrincipal();
         String username = loginUser.getUserDO().getUsername();
         // 删除redis中的值
