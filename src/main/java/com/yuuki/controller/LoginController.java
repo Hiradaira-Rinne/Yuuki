@@ -1,8 +1,7 @@
 package com.yuuki.controller;
 
-import com.yuuki.entity.account.UserDO;
+import com.yuuki.entity.account.DO.UserDO;
 import com.yuuki.service.account.LoginService;
-import com.yuuki.service.account.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,8 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class LoginController {
 
+    private final LoginService loginService;
+
     @Autowired
-    private LoginService loginService;
+    public LoginController(LoginService loginService) {
+        this.loginService = loginService;
+    }
 
     @PostMapping("/user/login")
     public String login(@RequestBody UserDO userDO) {

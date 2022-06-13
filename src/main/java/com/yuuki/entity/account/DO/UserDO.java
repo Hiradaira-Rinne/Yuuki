@@ -1,8 +1,15 @@
-package com.yuuki.entity.account;
+package com.yuuki.entity.account.DO;
 
 import lombok.Data;
 
-import javax.persistence.*;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -14,8 +21,10 @@ import java.io.Serializable;
 @Entity
 @Table(name = "t_user")
 public class UserDO implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 8286533391502406417L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", columnDefinition = "bigint comment '主键id 自增'")
     private Long id;
 

@@ -2,7 +2,7 @@ package com.yuuki.service.account.impl;
 
 import com.google.gson.Gson;
 import com.yuuki.entity.account.LoginUser;
-import com.yuuki.entity.account.UserDO;
+import com.yuuki.entity.account.DO.UserDO;
 import com.yuuki.service.account.LoginService;
 import com.yuuki.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * @author Yuuki
@@ -44,8 +45,10 @@ public class LoginServiceImpl implements LoginService {
         String jwt = JwtUtil.createJWT(loginUser.getUserDO().getUsername());
         Map<Object, Object> result = new HashMap<>();
         result.put("Token", jwt);
+        LoginUser loginUserToRedis = new LoginUser(loginUser.getUserDO(), loginUser.getPermissions());
+
         // 用户信息存入redis
-        stringRedisTemplate.opsForValue().set("Login:" + loginUser.getUserDO().getUsername(), gson.toJson(loginUser));
+        stringRedisTemplate.opsForValue().set("Login:" + loginUser.getUserDO().getUsername(), gson.toJson(loginUserToRedis));
         return gson.toJson(result);
     }
 

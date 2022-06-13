@@ -1,6 +1,6 @@
 package com.yuuki.service.account;
 
-import com.yuuki.entity.account.UserDO;
+import com.yuuki.entity.account.DO.UserDO;
 
 /**
  * @author Yuuki
