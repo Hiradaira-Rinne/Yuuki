@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class YuukiController {
 
     @GetMapping("/yuuki")
-    @PreAuthorize("hasAuthority('abc')")
+    @PreAuthorize("hasAuthority('Yuuki')")
     public String yuuki() {
         return "hello yuuki";
     }
