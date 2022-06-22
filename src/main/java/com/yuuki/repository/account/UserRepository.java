@@ -15,15 +15,8 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<UserDO, Long> {
     UserDO findByUsername(String username);
 
-    @Query(value = "SELECT\n" +
-            "\tm.permission_name \n" +
-            "FROM\n" +
-            "\tt_user_role ur\n" +
-            "\tLEFT JOIN t_role r ON ur.role_id = r.id\n" +
-            "\tLEFT JOIN t_role_permission rm ON ur.role_id = rm.role_id\n" +
-            "\tLEFT JOIN t_permission m ON m.id = rm.permission_id \n" +
-            "WHERE\n" +
-            "\tuser_id = ?1 \n" +
-            "\tAND r.STATUS = 0 ", nativeQuery = true)
+    @Query(value = "SELECT p.permissionName FROM UserJoinRoleDO ur LEFT JOIN RoleDO r ON ur.roleId = r.id " +
+            "LEFT JOIN RoleJoinPermissionDO rp ON ur.roleId = rp.roleId LEFT JOIN PermissionDO p ON p.id = rp.permissionId " +
+            "WHERE ur.userId = ?1 AND r.status = '0'")
     List<String> findPermsByUserId(Long userId);
 }

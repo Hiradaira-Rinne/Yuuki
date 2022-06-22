@@ -1,6 +1,7 @@
 package com.yuuki.service.account;
 
 import com.yuuki.entity.account.DO.UserDO;
+import com.yuuki.entity.response.ResponseEntity;
 
 /**
  * @author Yuuki
@@ -8,7 +9,7 @@ import com.yuuki.entity.account.DO.UserDO;
  */
 public interface LoginService {
 
-    String login(UserDO userDO);
+    ResponseEntity<String> login(UserDO userDO);
 
-    String logout();
+    ResponseEntity<String> logout();
 }

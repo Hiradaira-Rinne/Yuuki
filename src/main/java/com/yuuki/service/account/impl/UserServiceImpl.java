@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserDO byUsername = userRepository.findByUsername(username);
         if (Objects.isNull(byUsername)) {
-            throw new UsernameNotFoundException("未查询到对应用户名密码");
+            throw new UsernameNotFoundException("用户名密码错误");
         }
         List<String> permissionKeyList =  userRepository.findPermsByUserId(byUsername.getId());
         return new LoginUser(byUsername, permissionKeyList);
