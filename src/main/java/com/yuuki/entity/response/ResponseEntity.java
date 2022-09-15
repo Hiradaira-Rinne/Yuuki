@@ -1,8 +1,12 @@
 package com.yuuki.entity.response;
 
+import com.yuuki.enums.response.ResponseCodeEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.springframework.http.HttpStatus;
+import org.springframework.security.core.parameters.P;
+
+import java.io.Serial;
+import java.io.Serializable;
 
 /**
  * @author Yuuki
@@ -10,30 +14,31 @@ import org.springframework.http.HttpStatus;
  */
 @Data
 @AllArgsConstructor
-public class ResponseEntity<T> {
+public class ResponseEntity<T> implements Serializable {
 
-    private final String OPERATE_SUCCESSFULLY = "操作成功";
+    @Serial
+    private static final long serialVersionUID = -1862589847917837321L;
 
-    private Integer code;
+    private ResponseCodeEnum code;
 
     private T data;
 
     private String description;
 
     public ResponseEntity() {
-        this.code = HttpStatus.OK.value();
-        this.description = this.OPERATE_SUCCESSFULLY;
+        this.code = ResponseCodeEnum.Y00000;
+        this.description = ResponseCodeEnum.E00005.getMsg();
     }
 
     public ResponseEntity(T data) {
-        this.code = HttpStatus.OK.value();
+        this.code = ResponseCodeEnum.Y00000;
         this.data = data;
-        this.description = this.OPERATE_SUCCESSFULLY;
+        this.description = ResponseCodeEnum.Y00000.getMsg();
     }
 
-    public ResponseEntity(Integer code, T data) {
+    public ResponseEntity(ResponseCodeEnum code, T data) {
         this.code = code;
         this.data = data;
-        this.description = this.OPERATE_SUCCESSFULLY;
+        this.description = ResponseCodeEnum.Y00000.getMsg();
     }
 }
